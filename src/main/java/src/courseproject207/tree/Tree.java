@@ -1,10 +1,18 @@
 package src.courseproject207.tree;
 
 public interface Tree {
+    /*
+     * Return the family of Tree
+     */
+    String getFamily();
 
     /*
-     * Return the type of Tree
+     * Return the species of Tree
      */
-    public String getType();
+    String getSpeciesName();
 
+    /*
+     * String representation of a Tree
+     */
+    String toString();
 }

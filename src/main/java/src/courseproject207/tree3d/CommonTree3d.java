@@ -15,7 +15,7 @@ public class CommonTree3d extends Tree3d {
 
     public CommonTree3d(){}
 
-    public CommonTree3d(int x,int y,int width,int height, int length){
+    public CommonTree3d(int x,int y, int z, int width,int height, int length){
         this.components = new Box[7];
 
         this.components[0] = new Box(width, height, length);
@@ -25,6 +25,7 @@ public class CommonTree3d extends Tree3d {
         this.components[0].setMaterial(trunkMaterial);
         this.components[0].translateXProperty().set(x);
         this.components[0].translateYProperty().set(y);
+        this.components[0].translateZProperty().set(z);
 
         PhongMaterial leafMaterial = new PhongMaterial();
         Image leafImage=null;
@@ -39,7 +40,8 @@ public class CommonTree3d extends Tree3d {
         {
             this.components[i] = new Box(120, 120, 120);
             this.components[i].setMaterial(leafMaterial);
-            this.components[i].translateXProperty().set(x - 3*10 + i*10);
+            this.components[i].translateXProperty().set(x);
+            this.components[i].translateZProperty().set(z);
             this.components[i].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
         }
     }
