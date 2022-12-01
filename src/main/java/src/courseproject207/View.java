@@ -15,14 +15,16 @@ import java.io.IOException;
 
 public class View extends Group {
 
+    private Forest forest;
+
     // X, Y denote the center (0,0) of the view
     public View(int x, int y) {
 
         //Setup Ground
-        Box ground = new Box(1000, 10, 1000);
+        Box ground = new Box(1000, 1000, 1000);
         ground.translateXProperty().set(x);
         ground.translateZProperty().set(y-400);
-        ground.translateYProperty().set(y+100);
+        ground.translateYProperty().set(y+600);
         PhongMaterial grassMaterial = new PhongMaterial();
         Image grassImage=null;
         try{
@@ -33,8 +35,26 @@ public class View extends Group {
         ground.setMaterial(grassMaterial);
         this.getChildren().add(ground);
 
-        // Setup Tree Concrete Prototype
-        this.getChildren().addAll(new CommonTree3d(x, y, 60, 190, 40).getComponents());
+        this.forest = new Forest();
+
+        System.out.println("Tree Species:");
+        for(String species: this.forest.getTreeSpecies().keySet())
+        {
+            System.out.println(species + ", number of Trees:" + this.forest.getTreeSpecies().get(species).size());
+        }
+
+        System.out.println("\nTree Families:");
+        for(String family: this.forest.getTreeFamilies().keySet())
+        {
+            System.out.println(family + ", species: " + this.forest.getTreeFamilies().get(family));
+        }
+
+        // Draw out some trees
+        this.getChildren().addAll(new CommonTree3d(x, y, 0, 60, 190, 40).getComponents());
+
+        this.getChildren().addAll(new CommonTree3d(x + 200, y, 200, 60, 500, 40).getComponents());
+
+        this.getChildren().addAll(new CommonTree3d(x + 200, y, -350, 40, 750, 60).getComponents());
 
         // Setup Lights
         this.getChildren().addAll(lights());

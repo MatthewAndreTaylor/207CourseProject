@@ -10,15 +10,13 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class VisualizationApplication extends Application {
 
     protected static final int WIDTH = 1000;
     protected static final int HEIGHT = 800;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
 
         MovableCamera camera = new MovableCamera();
 
@@ -43,8 +41,6 @@ public class VisualizationApplication extends Application {
             }
         });
         stage.show();
-
-        Forest f= new Forest();
     }
 
     class MovableCamera extends PerspectiveCamera {
