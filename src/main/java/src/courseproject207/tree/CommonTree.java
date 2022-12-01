@@ -2,7 +2,7 @@ package src.courseproject207.tree;
 
 public class CommonTree implements Tree{
 
-    public CommonTree(int id, double x, double y, int height, String speciesName)
+    public CommonTree(double x, double y,int height,int age,int id)
     {
 
     }
