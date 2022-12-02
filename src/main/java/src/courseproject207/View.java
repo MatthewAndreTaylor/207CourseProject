@@ -1,14 +1,12 @@
 package src.courseproject207;
 
+import javafx.geometry.Point3D;
+import javafx.scene.DirectionalLight;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.PointLight;
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
-import javafx.scene.transform.Translate;
 import src.courseproject207.tree3d.CommonTree3d;
 
 import java.io.IOException;
@@ -62,12 +60,11 @@ public class View extends Group {
 
     private Node[] lights()
     {
-        PointLight right = new PointLight();
-        Transform base = new Rotate(0, Rotate.Y_AXIS);
-        right.getTransforms().add(new Translate(0,50,-1000));
-        right.getTransforms().add(base);
+        DirectionalLight right = new DirectionalLight();
+        right.setDirection(new Point3D(-1, 2, -2));
 
-        PointLight left = new PointLight();
+        DirectionalLight left = new DirectionalLight();
+        right.setDirection(new Point3D(1, 2, -1));
 
         return new Node[]{right, left};
     }
