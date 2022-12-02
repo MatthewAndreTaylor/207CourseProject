@@ -9,6 +9,12 @@ import java.util.Scanner;
 public class TreeFactory {
     Scanner reader;
 
+    /**
+     * Populate a forest with a reference to tree data
+     * @param file
+     * @param forest
+     * @throws IOException
+     */
     public void readFiles(String file, Forest forest) throws IOException
     {
         File f = new File(file);
@@ -52,7 +58,17 @@ public class TreeFactory {
         }
     }
 
+    /**
+     * Generate a given tree
+     * @param id
+     * @param x
+     * @param y
+     * @param height
+     * @param speciesName
+     * @param category
+     * @return a Concrete tree from the params
+     */
     private Tree createTree(int id, double x, double y, int height, String speciesName,String category) {
-        return new CommonTree(id, x,y,height,speciesName,category);
+        return new ConcreteTree(id, x,y,height,speciesName,category);
     }
 }

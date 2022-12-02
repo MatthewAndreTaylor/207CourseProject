@@ -8,7 +8,6 @@ import java.util.*;
 public class Forest {
     private ArrayList<Tree> trees;
     private HashMap<String, ArrayList<Tree>> treeSpecies;
-
     private HashMap<String, HashSet<String>> treeFamilies;
     private TreeFactory treeFactory;
 
@@ -21,6 +20,9 @@ public class Forest {
         this.generateTrees();
     }
 
+    /**
+     * Generate and populate tree's for this given forest
+     */
     private void generateTrees()
     {
         try
@@ -32,6 +34,10 @@ public class Forest {
         }
     }
 
+    /**
+     * Add Tree t to the forest
+     * @param t
+     */
     public void addTree(Tree t)
     {
         String type = t.getSpeciesName();
@@ -56,6 +62,10 @@ public class Forest {
         this.trees.add(t);
     }
 
+    /**
+     * Remove Tree t from the forest
+     * @param t
+     */
     public void removeTree(Tree t)
     {
         this.treeSpecies.get(t.getSpeciesName()).remove(t);
@@ -63,14 +73,23 @@ public class Forest {
         this.trees.remove(t);
     }
 
+    /**
+     * @return ArrayList of trees in this forest
+     */
     public ArrayList<Tree> getTrees()
     {
         return this.trees;
     }
 
+    /**
+     * @return A mapping of species names to trees of that species
+     */
     public HashMap<String, ArrayList<Tree>> getTreeSpecies() {
         return this.treeSpecies;
     }
+    /**
+     * @return A mapping of family names to a set species names of that family
+     */
     public HashMap<String, HashSet<String>> getTreeFamilies() {
         return treeFamilies;
     }
