@@ -58,6 +58,9 @@ public class World3d extends Group {
         this.getChildren().addAll(lights());
     }
 
+    /**
+     * @return an Array of lights for rendering this world
+     */
     private Node[] lights()
     {
         DirectionalLight right = new DirectionalLight();

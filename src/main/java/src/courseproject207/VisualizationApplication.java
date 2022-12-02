@@ -81,7 +81,7 @@ public class VisualizationApplication extends Application {
             this.getTransforms().addAll(plane, yRotation, xRotation);
         }
 
-        /*
+        /**
          * Orbit the camera given the last rotations and new drag
          */
         public void orbit()
@@ -90,7 +90,7 @@ public class VisualizationApplication extends Application {
             this.yRotation.setAngle((yRotation.getAngle() + dragAmount.getX()*dampening % 360));
         }
 
-        /*
+        /**
          * Move the camera in the XY plane
          */
         public void planeXY()
@@ -99,14 +99,25 @@ public class VisualizationApplication extends Application {
             this.plane.setY(this.plane.getY() - dragAmount.getY() * 10 * dampening);
         }
 
+        /**
+         * Given a position and rotation move and adjust the camera
+         * @param x location
+         * @param y location
+         * @param z location
+         * @param xAngle rotation
+         * @param yAngle rotation
+         */
         public void setOrientation(double x, double y, double z, double xAngle, double yAngle){
             this.plane.setX(x);
             this.plane.setY(y);
             this.plane.setY(z);
             this.xRotation.setAngle(xAngle);
-            this.xRotation.setAngle(xAngle);
+            this.xRotation.setAngle(yAngle);
         }
 
+        /**
+         * @return String representation of the camera's location and rotation
+         */
         public String printOrientation()
         {
             return plane.getX() + ", " + plane.getY() + ", " + plane.getZ() + ", "

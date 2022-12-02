@@ -1,6 +1,6 @@
 package src.courseproject207.tree;
 
-public class CommonTree implements Tree{
+public class ConcreteTree implements Tree{
 
     private final double x;
     private final double y;
@@ -9,7 +9,7 @@ public class CommonTree implements Tree{
     private final String speciesName;
     private final String family;
 
-    public CommonTree(int id, double x, double y, int height, String speciesName,String category)
+    public ConcreteTree(int id, double x, double y, int height, String speciesName, String category)
     {
         this.x = x;
         this.y = y;
@@ -25,14 +25,24 @@ public class CommonTree implements Tree{
                 + this.height + "m tall. My id:" + this.id;
     }
 
+    /**
+     * @return this Trees species
+     */
     public String getSpeciesName() {
         return this.speciesName;
     }
 
+    /**
+     * @return this Trees family name
+     */
     public String getFamily() {
         return this.family;
     }
 
+    /**
+     * A ConcreteTree should be able to increment its height
+     * @param amount
+     */
     public void grow(int amount)
     {
         this.height += amount;
