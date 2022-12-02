@@ -11,12 +11,12 @@ import src.courseproject207.tree3d.CommonTree3d;
 
 import java.io.IOException;
 
-public class View extends Group {
+public class WorldView3d extends Group {
 
     private Forest forest;
 
     // X, Y denote the center (0,0) of the view
-    public View(int x, int y) {
+    public WorldView3d(int x, int y) {
 
         //Setup Ground
         Box ground = new Box(1000, 1000, 1000);
