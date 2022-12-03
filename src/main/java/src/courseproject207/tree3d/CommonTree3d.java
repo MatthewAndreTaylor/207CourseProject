@@ -7,6 +7,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import src.courseproject207.VisualizationApplication;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class CommonTree3d extends Tree3d {
@@ -17,7 +18,7 @@ public class CommonTree3d extends Tree3d {
 
     public CommonTree3d(int x,int y, int z, int width,int height, int length){
         this.components = new Box[7];
-
+        //create trunk
         this.components[0] = new Box(width, height, length);
         PhongMaterial trunkMaterial = new PhongMaterial();
         trunkMaterial.setDiffuseColor(Color.valueOf("#725C42"));
