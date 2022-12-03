@@ -35,6 +35,6 @@ public class ComponentView extends HBox{
 
         this.getChildren().add(projectInfoButton);
         this.getChildren().add(filterComponent);
-
+        this.setAccessibleHelp("2D components for interacting with the application");
     }
 }

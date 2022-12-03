@@ -10,6 +10,7 @@ public class FilterComponent extends ComboBox{
     private Forest forest;
     public FilterComponent(World3d world3d){
         this.forest = world3d.getForest();
+
         this.setOnAction(event -> mouseClick());
         this.setItems(FXCollections.observableArrayList(
                 "Fruit Trees 🍎",
@@ -18,6 +19,7 @@ public class FilterComponent extends ComboBox{
                 "Evergreen Trees 🎄",
                 "Common Trees 🌲"
         ));
+        this.setAccessibleHelp("Options for filtering trees in the forest");
     }
 
     /**

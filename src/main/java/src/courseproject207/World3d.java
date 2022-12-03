@@ -8,8 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import src.courseproject207.tree3d.CommonTree3d;
-
-import java.io.IOException;
+import java.util.Objects;
 
 public class World3d extends Group {
 
@@ -24,29 +23,12 @@ public class World3d extends Group {
         ground.translateZProperty().set(y-400);
         ground.translateYProperty().set(y+600);
         PhongMaterial grassMaterial = new PhongMaterial();
-        Image grassImage=null;
-        try{
-            grassImage = new Image(VisualizationApplication.class.getResource("grass.png").openStream());
-        }catch (IOException e){
-        }
 
-        grassMaterial.setDiffuseMap(grassImage);
+        grassMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("grass.png"))));
         ground.setMaterial(grassMaterial);
         this.getChildren().add(ground);
 
         this.forest = new Forest();
-
-        System.out.println("Tree Species:");
-        for(String species: this.forest.getTreeSpecies().keySet())
-        {
-            System.out.println(species + ", number of Trees:" + this.forest.getTreeSpecies().get(species).size());
-        }
-
-        System.out.println("\nTree Families:");
-        for(String family: this.forest.getTreeFamilies().keySet())
-        {
-            System.out.println(family + ", species: " + this.forest.getTreeFamilies().get(family));
-        }
 
         // Draw out some trees
         this.getChildren().addAll(new CommonTree3d(x, y, 0, 60, 190, 40).getComponents());
@@ -57,6 +39,21 @@ public class World3d extends Group {
 
         // Setup Lights
         this.getChildren().addAll(lights());
+
+        // Creating a text representation of the forest for accessibility
+        String forestDescription = "Forest Description:";
+        forestDescription = forestDescription.concat("\nTree Families:");
+        for(String family: this.forest.getTreeFamilies().keySet()) {
+            forestDescription = forestDescription.concat("\n" + family + ", species: " + this.forest.getTreeFamilies().get(family));
+        }
+        forestDescription = forestDescription.concat("\nTree Species:");
+        for(String species: this.forest.getTreeSpecies().keySet())
+        {
+            forestDescription = forestDescription.concat("\n" +species + ", number of Trees:" + this.forest.getTreeSpecies().get(species).size());
+        }
+        System.out.println(forestDescription);
+        this.setAccessibleHelp("Forest containing 3d Tree Renders");
+        this.setAccessibleText(forestDescription);
     }
     /**
      * @return this forest
