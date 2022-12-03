@@ -64,7 +64,7 @@ public class VisualizationApplication extends Application {
         scene.setOnScroll( scrollEvent -> camera.setTranslateZ(scrollEvent.getDeltaY() + camera.getTranslateZ()));
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case SHIFT -> camera.setOrientation(0,0,0,0,0);
+                case ESCAPE -> camera.setOrientation(0,0,0,0,0);
                 case ALT -> System.out.println(camera.printOrientation());
             }
         });
@@ -82,6 +82,7 @@ public class VisualizationApplication extends Application {
 
         public MovableCamera()
         {
+            this.setFarClip(100);
             this.getTransforms().addAll(plane, yRotation, xRotation);
         }
 
