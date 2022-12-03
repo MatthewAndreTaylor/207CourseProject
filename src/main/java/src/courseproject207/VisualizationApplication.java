@@ -29,7 +29,7 @@ public class VisualizationApplication extends Application {
         subScene.setFill(Color.SKYBLUE);
         subScene.setCamera(camera);
 
-        ComponentView componentView = new ComponentView();
+        ComponentView componentView = new ComponentView(world3D);
         VBox vbox = new VBox(componentView, subScene);
         Scene scene = new Scene(vbox, WIDTH, HEIGHT);
         stage.setTitle("Forest Visualization");

@@ -27,7 +27,8 @@ public class World3d extends Group {
         Image grassImage=null;
         try{
             grassImage = new Image(VisualizationApplication.class.getResource("grass.png").openStream());
-        }catch (IOException e){}
+        }catch (IOException e){
+        }
 
         grassMaterial.setDiffuseMap(grassImage);
         ground.setMaterial(grassMaterial);
@@ -56,6 +57,12 @@ public class World3d extends Group {
 
         // Setup Lights
         this.getChildren().addAll(lights());
+    }
+    /**
+     * @return this forest
+     */
+    public Forest getForest(){
+        return this.forest;
     }
 
     /**
