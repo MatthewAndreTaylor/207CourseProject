@@ -8,13 +8,14 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class FruitTree3d extends Tree3d{
     private Box[] components;
     public FruitTree3d(){}
     public FruitTree3d(int x,int y, int z, int width,int height, int length) {
         this.components = new Box[6];
-
+        //create trunk
         this.components[0] = new Box(width/2, height, length/2);
         PhongMaterial trunkMaterial = new PhongMaterial();
         trunkMaterial.setDiffuseColor(Color.valueOf("#725C42"));
@@ -24,32 +25,21 @@ public class FruitTree3d extends Tree3d{
         this.components[0].translateYProperty().set(y);
         this.components[0].translateZProperty().set(z);
 
+        //get leaf material
         PhongMaterial leafMaterial = new PhongMaterial();
-        Image leafImage=null;
-        try{
-            leafImage = new Image(VisualizationApplication.class.getResource("leaves.png").openStream());
-        }catch (IOException e){}
-
+        leafMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))));
         leafMaterial.setDiffuseColor(Color.valueOf("#145c14"));
-        leafMaterial.setDiffuseMap(leafImage);
 
-        //for (int i = 1; i < 2; i++)
-        //{
-        //this.components[i] = new Box(120, 120, 120);
-        //this.components[i].setMaterial(leafMaterial);
-        //this.components[i].translateXProperty().set(x);
-        //this.components[i].translateZProperty().set(z);
-        //this.components[i].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
-        //}
+
         double leafwidth = height/4;
         double leafheight = this.components[0].getHeight()/3;
         double leafdepth = this.components[0].getHeight()/2;
-        double newz= z;
-        this.components[1]=this.makebox(x, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),newz,leafwidth,leafheight,leafdepth, leafMaterial);
-        this.components[2]=this.makebox(x+leafwidth, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),newz,leafwidth,leafheight,leafdepth, leafMaterial);
-        this.components[3]=this.makebox(x-leafwidth, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),newz,leafwidth,leafheight,leafdepth, leafMaterial);
-        this.components[4]=this.makebox(x+(leafwidth/2), (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5))-leafheight,newz,leafwidth,leafheight,leafdepth/2, leafMaterial);
-        this.components[5]=this.makebox(x-(leafwidth/2), (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5))-leafheight,newz,leafwidth,leafheight,leafdepth/2, leafMaterial);
+        //using variables above make boxes
+        this.components[1]=this.makebox(x, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),z,leafwidth,leafheight,leafdepth, leafMaterial);
+        this.components[2]=this.makebox(x+leafwidth, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),z,leafwidth,leafheight,leafdepth, leafMaterial);
+        this.components[3]=this.makebox(x-leafwidth, (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5)),z,leafwidth,leafheight,leafdepth, leafMaterial);
+        this.components[4]=this.makebox(x+(leafwidth/2), (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5))-leafheight,z,leafwidth,leafheight,leafdepth/2, leafMaterial);
+        this.components[5]=this.makebox(x-(leafwidth/2), (this.components[0].getTranslateY()-(this.components[0].getHeight()*1/5))-leafheight,z,leafwidth,leafheight,leafdepth/2, leafMaterial);
     }
     @Override
     public Node[] getComponents() {

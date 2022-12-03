@@ -8,13 +8,14 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class MapleTree3d extends Tree3d{
     private Box[] components;
     public MapleTree3d(){}
     public MapleTree3d(int x,int y, int z, int width,int height, int length) {
         this.components = new Box[2];
-
+        //create trunk
         this.components[0] = new Box(width, height, length);
         PhongMaterial trunkMaterial = new PhongMaterial();
         trunkMaterial.setDiffuseColor(Color.valueOf("#725C42"));
@@ -23,13 +24,11 @@ public class MapleTree3d extends Tree3d{
         this.components[0].translateXProperty().set(x);
         this.components[0].translateYProperty().set(y);
         this.components[0].translateZProperty().set(z);
+        //create leaf material
         PhongMaterial leafMaterial = new PhongMaterial();
-        Image leafImage=null;
-        try{
-        leafImage = new Image(VisualizationApplication.class.getResource("leavesgrey.png").openStream());
-        }catch (IOException e){}
-        leafMaterial.setDiffuseMap(leafImage);
+        leafMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))));
         leafMaterial.setDiffuseColor(Color.valueOf("#d1721f"));
+        //create box
         this.components[1]=makebox(x,y-height/4,z,height/2,height,height/2,leafMaterial);
 
 }
