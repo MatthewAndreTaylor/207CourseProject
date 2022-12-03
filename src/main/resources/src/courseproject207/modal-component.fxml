@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea">
+   <effect>
+      <Blend/>
+   </effect>
+   <Text accessibleText="Title: (Forest Visualization 3D)" strokeType="OUTSIDE" strokeWidth="0.0"
+         text="Forest Visualization 3D">
+      <font>
+         <Font name="Baskerville Old Face" size="58.0"/>
+      </font>
+   </Text>
+   <Label text="Intial Tree Render Containing 3 Tree's" textAlignment="CENTER">
+      <font>
+         <Font size="11.0"/>
+      </font>
+   </Label>
+   <ImageView accessibleText="Tree Render: (3 tree's)" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true"
+              smooth="false">
+      <Image url="@icon.png"/>
+   </ImageView>
+   <TextFlow prefHeight="74.0" prefWidth="600.0" textAlignment="CENTER">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Description"
+            textAlignment="CENTER">
+         <accessibleText>Project description</accessibleText>
+      </Text>
+   </TextFlow>
+</VBox>

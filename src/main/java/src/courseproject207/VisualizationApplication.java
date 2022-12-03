@@ -5,6 +5,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
@@ -12,6 +13,8 @@ import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import src.courseproject207.components.*;
 import src.courseproject207.helpers.Vector2;
+
+import java.util.Objects;
 
 public class VisualizationApplication extends Application {
 
@@ -29,7 +32,7 @@ public class VisualizationApplication extends Application {
         subScene.setFill(Color.SKYBLUE);
         subScene.setCamera(camera);
 
-        ComponentView componentView = new ComponentView();
+        ComponentView componentView = new ComponentView(world3D);
         VBox vbox = new VBox(componentView, subScene);
         Scene scene = new Scene(vbox, WIDTH, HEIGHT);
         stage.setTitle("Forest Visualization");
@@ -66,6 +69,7 @@ public class VisualizationApplication extends Application {
             }
         });
 
+        stage.getIcons().add(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("icon.png"))));
         stage.show();
     }
 
