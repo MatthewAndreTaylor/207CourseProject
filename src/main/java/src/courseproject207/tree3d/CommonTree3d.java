@@ -7,7 +7,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import src.courseproject207.VisualizationApplication;
 
-import java.util.Objects;
+import java.io.IOException;
 
 public class CommonTree3d extends Tree3d {
 
