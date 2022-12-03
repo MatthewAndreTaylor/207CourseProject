@@ -1,6 +1,8 @@
 package src.courseproject207;
 
 import src.courseproject207.tree.*;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.*;
@@ -9,6 +11,8 @@ public class Forest {
     private ArrayList<Tree> trees;
     private HashMap<String, ArrayList<Tree>> treeSpecies;
     private HashMap<String, HashSet<String>> treeFamilies;
+
+    private HashMap<String, String> renderMapping;
     private TreeFactory treeFactory;
 
     public Forest()
@@ -17,6 +21,7 @@ public class Forest {
         this.trees = new ArrayList<>();
         this.treeSpecies = new HashMap<>();
         this.treeFamilies = new HashMap<>();
+        this.createRenderMapping();
         this.generateTrees();
     }
 
@@ -28,6 +33,28 @@ public class Forest {
         try
         {
             this.treeFactory.readFiles(this);
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Generate a Mapping of tree families to their corresponding 3d render
+     */
+    private void createRenderMapping()
+    {
+        this.renderMapping = new HashMap<>();
+        try
+        {
+            File familyRenderMap = new File(VisualizationApplication.class.getResource("FamilyRenders.txt").getFile());
+            Scanner scanner = new Scanner(familyRenderMap);
+            while(scanner.hasNextLine())
+            {
+                String [] line = scanner.nextLine().split(",");
+                this.renderMapping.put(line[0], line[1]);
+            }
+            scanner.close();
         }
         catch (IOException e){
             throw new RuntimeException(e);
@@ -91,6 +118,11 @@ public class Forest {
      * @return A mapping of family names to a set species names of that family
      */
     public HashMap<String, HashSet<String>> getTreeFamilies() {
-        return treeFamilies;
+        return this.treeFamilies;
+    }
+
+    public HashMap<String, String> getRenderMapping()
+    {
+        return this.renderMapping;
     }
 }

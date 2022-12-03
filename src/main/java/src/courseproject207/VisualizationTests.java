@@ -1,7 +1,6 @@
 package src.courseproject207;
 
 import org.testng.annotations.Test;
-import src.courseproject207.tree.ConcreteTree;
 import src.courseproject207.tree.Tree;
 
 import java.util.ArrayList;
@@ -15,10 +14,10 @@ public class VisualizationTests {
     public void testForestSize() {
         Forest forest = new Forest();
         assertEquals(forest.getTrees().size(), 4387, "Error when testing Forest");
-        forest.addTree(new ConcreteTree(0,0,0,1,"Christmas", "EverGreen"));
+        forest.addTree(new Tree(0,0,0,1,"Christmas", "EverGreen"));
         assertEquals(forest.getTrees().size(), 4388, "Error when testing adding a single Tree");
         for (int i = 0; i < 10; i++) {
-            forest.addTree(new ConcreteTree(0,0,0,1,"Christmas", "EverGreen"));
+            forest.addTree(new Tree(0,0,0,1,"Christmas", "EverGreen"));
         }
         assertEquals(forest.getTrees().size(), 4398, "Error when testing single Tree");
 
