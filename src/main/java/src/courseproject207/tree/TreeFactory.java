@@ -70,6 +70,6 @@ public class TreeFactory {
      * @return a Concrete tree from the params
      */
     private Tree createTree(int id, double x, double y, int height, String speciesName,String category) {
-        return new ConcreteTree(id, x,y,height,speciesName,category);
+        return new Tree(id, x,y,height,speciesName,category);
     }
 }

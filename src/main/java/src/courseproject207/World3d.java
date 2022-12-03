@@ -7,7 +7,10 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import src.courseproject207.tree.Tree;
 import src.courseproject207.tree3d.CommonTree3d;
+import src.courseproject207.tree3d.Tree3d;
+
 import java.util.Objects;
 
 public class World3d extends Group {
@@ -30,12 +33,18 @@ public class World3d extends Group {
 
         this.forest = new Forest();
 
+        Tree testTree = forest.getTrees().get(0);
+
+        Tree3d tree3D = tree3dRender(forest.getRenderMapping().get(testTree.getFamily()), testTree.getX(), testTree.getY(),  testTree.getHeight());
+
         // Draw out some trees
         this.getChildren().addAll(new CommonTree3d(x, y, 0, 60, 190, 40).getComponents());
 
         this.getChildren().addAll(new CommonTree3d(x + 200, y, 200, 60, 500, 40).getComponents());
 
         this.getChildren().addAll(new CommonTree3d(x + 200, y, -350, 40, 750, 60).getComponents());
+
+
 
         // Setup Lights
         this.getChildren().addAll(lights());
@@ -55,6 +64,24 @@ public class World3d extends Group {
         this.setAccessibleHelp("Forest containing 3d Tree Renders");
         this.setAccessibleText(forestDescription);
     }
+
+    public Tree3d tree3dRender(String render, double x,double y, int height)
+    {
+        return new CommonTree3d();
+
+//        switch (type) {
+//            case "Maple" -> {
+//                return new CommonTree3d(x,y,z,width,height,length);
+//            }
+//            case "Evergreen" -> {
+//                return new CommonTree3d(x,y,z,width,height,length);
+//            }
+//            default -> {
+//                return new CommonTree3d(x,y,z,width,height,length);
+//            }
+//        }
+    }
+
     /**
      * @return this forest
      */
