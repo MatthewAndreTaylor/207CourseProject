@@ -8,6 +8,7 @@ import javafx.scene.shape.Box;
 import src.courseproject207.VisualizationApplication;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class CommonTree3d extends Tree3d {
 
