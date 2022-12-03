@@ -13,7 +13,7 @@ public class Forest {
 
     public Forest()
     {
-        this.treeFactory =new TreeFactory();
+        this.treeFactory = new TreeFactory();
         this.trees = new ArrayList<>();
         this.treeSpecies = new HashMap<>();
         this.treeFamilies = new HashMap<>();
@@ -27,16 +27,16 @@ public class Forest {
     {
         try
         {
-            this.treeFactory.readFiles(VisualizationApplication.class.getResource("Tree_Inventory.csv").getFile(), this);
+            this.treeFactory.readFiles(this);
         }
         catch (IOException e){
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
     }
 
     /**
      * Add Tree t to the forest
-     * @param t
+     * @param t Tree to be added
      */
     public void addTree(Tree t)
     {
@@ -64,7 +64,7 @@ public class Forest {
 
     /**
      * Remove Tree t from the forest
-     * @param t
+     * @param t Tree to be removed
      */
     public void removeTree(Tree t)
     {

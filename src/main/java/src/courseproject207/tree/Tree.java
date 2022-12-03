@@ -15,4 +15,9 @@ public interface Tree {
      * String representation of a Tree
      */
     String toString();
+
+    /**
+     * Integer id for this tree
+     */
+    int getId();
 }

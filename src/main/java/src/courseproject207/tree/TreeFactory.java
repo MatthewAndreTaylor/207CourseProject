@@ -1,6 +1,8 @@
 package src.courseproject207.tree;
 
 import src.courseproject207.Forest;
+import src.courseproject207.VisualizationApplication;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -11,13 +13,12 @@ public class TreeFactory {
 
     /**
      * Populate a forest with a reference to tree data
-     * @param file
      * @param forest
      * @throws IOException
      */
-    public void readFiles(String file, Forest forest) throws IOException
+    public void readFiles(Forest forest) throws IOException
     {
-        File f = new File(file);
+        File f = new File(VisualizationApplication.class.getResource("Tree_Inventory.csv").getFile());
         this.reader = new Scanner(f);
         String[] categoryNames = this.reader.nextLine().split(",");
 
