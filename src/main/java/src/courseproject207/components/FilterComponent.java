@@ -5,7 +5,6 @@ import javafx.scene.control.ComboBox;
 import src.courseproject207.Forest;
 import src.courseproject207.World3d;
 
-
 public class FilterComponent extends ComboBox{
 
     private Forest forest;

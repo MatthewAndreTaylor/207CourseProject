@@ -4,28 +4,37 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import src.courseproject207.World3d;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ComponentView extends HBox{
     public ComponentView(World3d world3d)
     {
+        this.setSpacing(10);
 
-        FilterComponent filterComponent = new FilterComponent(world3d);
-
-        Button button = new Button();
-        button.setText("Project Info 🌲");
+        // This button shows a modal displaying project info
+        Button projectInfoButton = new Button();
+        projectInfoButton.setText("Project Info 🌲");
 
         ArrayList<ModalComponent> modalComponents = new ArrayList<>();
 
-        button.setOnAction(event -> {
+        projectInfoButton.setOnAction(event -> {
             for(ModalComponent m: modalComponents){
                 m.close();
             }
             modalComponents.clear();
-            modalComponents.add(new ModalComponent());
+            try {
+                modalComponents.add(new ModalComponent());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         });
 
+        // This component allows the user to filter Trees
+        FilterComponent filterComponent = new FilterComponent(world3d);
+
+        this.getChildren().add(projectInfoButton);
         this.getChildren().add(filterComponent);
-        this.getChildren().add(button);
+
     }
 }

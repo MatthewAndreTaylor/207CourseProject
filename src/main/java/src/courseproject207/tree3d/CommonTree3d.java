@@ -7,7 +7,7 @@ import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import src.courseproject207.VisualizationApplication;
 
-import java.io.IOException;
+import java.util.Objects;
 
 public class CommonTree3d extends Tree3d {
 
@@ -28,13 +28,11 @@ public class CommonTree3d extends Tree3d {
         this.components[0].translateZProperty().set(z);
 
         PhongMaterial leafMaterial = new PhongMaterial();
-        Image leafImage=null;
-        try{
-            leafImage = new Image(VisualizationApplication.class.getResource("leaves.png").openStream());
-        }catch (IOException e){}
 
         leafMaterial.setDiffuseColor(Color.valueOf("#228B22"));
-        leafMaterial.setDiffuseMap(leafImage);
+
+        // Set the Image of the leaves
+        leafMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leaves.png"))));
 
         for (int i = 1; i < 7; i++)
         {

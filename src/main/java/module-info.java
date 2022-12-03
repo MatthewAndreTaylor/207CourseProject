@@ -5,4 +5,6 @@ module src.courseproject207 {
 
     opens src.courseproject207 to javafx.fxml;
     exports src.courseproject207;
+    exports src.courseproject207.helpers;
+    exports src.courseproject207.components;
 }
