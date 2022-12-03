@@ -41,10 +41,17 @@ public class ConcreteTree implements Tree{
 
     /**
      * A ConcreteTree should be able to increment its height
-     * @param amount
+     * @param amount How much the tree should grow by
      */
     public void grow(int amount)
     {
         this.height += amount;
+    }
+
+    /**
+     * A concrete tree should be able to access its id
+     */
+    public int getId() {
+        return this.id;
     }
 }
