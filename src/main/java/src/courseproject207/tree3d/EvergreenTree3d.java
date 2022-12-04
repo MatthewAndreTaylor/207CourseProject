@@ -35,13 +35,20 @@ public class EvergreenTree3d extends Tree3d{
         double bottomTree = y+height/2-height/6;
         double leafHeight = this.components[0].getHeight()/3;
         double leafDepth = height/2;
+        //need ratio to determine if leaf clips into trunk
+        double ratio = java.lang.Math.max(width,length);
+        if (height/ratio>0.1) {
+            leafWidth = height/3;
+            leafDepth = height;
+        }
         // Create leaves
-        this.components[1]=this.makeBox(x,bottomTree-height/6 ,z,leafWidth,leafHeight,leafDepth, leafMaterial);
+
+        this.components[1]=this.makeBox(x,bottomTree-leafWidth ,z,leafWidth,leafHeight,leafDepth, leafMaterial);
         this.components[2]=this.makeBox(x+leafWidth, bottomTree-leafWidth,z,leafWidth,leafHeight,leafDepth, leafMaterial);
         this.components[3]=this.makeBox(x-leafWidth, bottomTree-leafWidth,z,leafWidth,leafHeight,leafDepth, leafMaterial);
         this.components[4]=this.makeBox(x+(leafWidth/2), (bottomTree-leafWidth)-leafHeight,z,leafWidth,leafHeight,leafDepth*3/4, leafMaterial);
         this.components[5]=this.makeBox(x-(leafWidth/2), (bottomTree-leafWidth)-leafHeight,z,leafWidth,leafHeight,leafDepth*3/4, leafMaterial);
-        this.components[6]=this.makeBox(x, (bottomTree-(height*1/6))-2*leafHeight,z,leafWidth,leafHeight,leafDepth/3, leafMaterial);
+        this.components[6]=this.makeBox(x, (bottomTree-(leafWidth))-2*leafHeight,z,leafWidth,leafHeight,leafDepth/3, leafMaterial);
     }
     @Override
     public Node[] getComponents() {
