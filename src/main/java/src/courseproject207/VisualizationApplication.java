@@ -64,8 +64,10 @@ public class VisualizationApplication extends Application {
         scene.setOnScroll( scrollEvent -> camera.setTranslateZ(scrollEvent.getDeltaY() + camera.getTranslateZ()));
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case SHIFT -> camera.setOrientation(0,0,0,0,0);
+                case ESCAPE -> camera.setOrientation(0,0,0,0,0);
                 case ALT -> System.out.println(camera.printOrientation());
+                case BACK_SLASH -> camera.setOrientation(10000, 0, -50000, -80 , -100);
+                case INSERT -> world3D.sampleRender();
             }
         });
 
@@ -124,7 +126,7 @@ public class VisualizationApplication extends Application {
          */
         public String printOrientation()
         {
-            return plane.getX() + ", " + plane.getY() + ", " + plane.getZ() + ", "
+            return plane.getX() + ", " + plane.getZ() + ", " + plane.getY() + ", "
                     + xRotation.getAngle() + ", " + yRotation.getAngle();
         }
     }

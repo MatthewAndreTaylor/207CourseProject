@@ -4,47 +4,34 @@ import javafx.geometry.Point3D;
 import javafx.scene.DirectionalLight;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import src.courseproject207.tree.Tree;
-import src.courseproject207.tree3d.CommonTree3d;
-import src.courseproject207.tree3d.Tree3d;
-
-import java.util.Objects;
+import src.courseproject207.tree3d.*;
 
 public class World3d extends Group {
-
+    private static final PhongMaterial grassMaterial = new PhongMaterial(Color.valueOf("#9adf8f"));
     private Forest forest;
 
     // X, Y denote the center (0,0) of the view
     public World3d(int x, int y) {
 
         //Setup Ground
-        Box ground = new Box(1000, 1000, 1000);
+        Box ground = new Box(150000, 1000, 150000);
         ground.translateXProperty().set(x);
-        ground.translateZProperty().set(y-400);
-        ground.translateYProperty().set(y+600);
-        PhongMaterial grassMaterial = new PhongMaterial();
-
-        grassMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("grass.png"))));
+        ground.translateYProperty().set(y+800);
         ground.setMaterial(grassMaterial);
         this.getChildren().add(ground);
 
         this.forest = new Forest();
 
-        Tree testTree = forest.getTrees().get(0);
-
-        Tree3d tree3D = tree3dRender(forest.getRenderMapping().get(testTree.getFamily()), testTree.getX(), testTree.getY(),  testTree.getHeight());
-
-        // Draw out some trees
-        this.getChildren().addAll(new CommonTree3d(x, y, 0, 60, 190, 40).getComponents());
-
-        this.getChildren().addAll(new CommonTree3d(x + 200, y, 200, 60, 500, 40).getComponents());
-
-        this.getChildren().addAll(new CommonTree3d(x + 200, y, -350, 40, 750, 60).getComponents());
-
-
+        for(int i = 0; i < 2000; i++)
+        {
+            Tree t = this.forest.getTrees().get(i);
+            Tree3d tree3D = tree3dRender(forest.getRenderMapping().get(t.getFamily()), t.getX(), t.getY(), y, t.getHeight());
+            this.getChildren().addAll(tree3D.getComponents());
+        }
 
         // Setup Lights
         this.getChildren().addAll(lights());
@@ -65,21 +52,59 @@ public class World3d extends Group {
         this.setAccessibleText(forestDescription);
     }
 
-    public Tree3d tree3dRender(String render, double x,double y, int height)
+    /**
+     * Render in a model of each type of 3d tree, for development
+     */
+    public void sampleRender()
     {
-        return new CommonTree3d();
+        this.getChildren().remove(0, this.getChildren().size());
+        Tree3d maple = tree3dRender("Maple", 0.5, 43.4396719038, 400, 15);
+        this.getChildren().addAll(maple.getComponents());
 
-//        switch (type) {
-//            case "Maple" -> {
-//                return new CommonTree3d(x,y,z,width,height,length);
-//            }
-//            case "Evergreen" -> {
-//                return new CommonTree3d(x,y,z,width,height,length);
-//            }
-//            default -> {
-//                return new CommonTree3d(x,y,z,width,height,length);
-//            }
-//        }
+        Tree3d common = tree3dRender("Common", 0.5005, 43.4396719038, 400, 10);
+        this.getChildren().addAll(common.getComponents());
+
+        Tree3d fruit = tree3dRender("Fruit", 0.501, 43.4396719038, 400, 10);
+        this.getChildren().addAll(fruit.getComponents());
+
+        Tree3d north = tree3dRender("NorthAmerican", 0.5015, 43.4396719038, 400, 12);
+        this.getChildren().addAll(north.getComponents());
+
+        Tree3d evergreen = tree3dRender("Evergreen", 0.502, 43.4396719038, 400, 12);
+        this.getChildren().addAll(evergreen.getComponents());
+    }
+
+    /**
+     * Render a tree 3d model given details of a tree
+     * @param render the type of 3d tree
+     * @param x real world longitude
+     * @param z real world latitude
+     * @param y scene height
+     * @param height The height of the tree
+     * @return a tree 3d model
+     */
+    public Tree3d tree3dRender(String render, double x,double z, int y,  int height)
+    {
+        int worldX = (int) Math.ceil((x-0.5)*600000);
+        int worldZ = (int) Math.ceil((z - 43.4388419037988)*600000);
+
+        switch (render) {
+            case "Maple" -> {
+                return new MapleTree3d(worldX,y,worldZ, height*50);
+            }
+            case "Evergreen" -> {
+                return new EvergreenTree3d(worldX,y,worldZ, height*50);
+            }
+            case "Fruit" -> {
+                return new FruitTree3d(worldX,y,worldZ, height*50);
+            }
+            case "NorthAmerican" -> {
+                return new NorthAmericanTree3d(worldX,y,worldZ, height*50);
+            }
+            default -> {
+                return new CommonTree3d(worldX,y,worldZ, height*50);
+            }
+        }
     }
 
     /**
