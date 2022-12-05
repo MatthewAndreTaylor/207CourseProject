@@ -72,6 +72,7 @@ public class VisualizationApplication extends Application {
         });
 
         stage.getIcons().add(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("icon.png"))));
+        stage.setResizable(false);
         stage.show();
     }
 

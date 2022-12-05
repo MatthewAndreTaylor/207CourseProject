@@ -3,7 +3,6 @@ package src.courseproject207;
 import javafx.geometry.Point3D;
 import javafx.scene.DirectionalLight;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -13,28 +12,22 @@ import src.courseproject207.tree3d.*;
 public class World3d extends Group {
     private static final PhongMaterial grassMaterial = new PhongMaterial(Color.valueOf("#9adf8f"));
     private Forest forest;
+    private int x;
+    private int y;
 
     // X, Y denote the center (0,0) of the view
     public World3d(int x, int y) {
-
-        //Setup Ground
-        Box ground = new Box(150000, 1000, 150000);
-        ground.translateXProperty().set(x);
-        ground.translateYProperty().set(y+800);
-        ground.setMaterial(grassMaterial);
-        this.getChildren().add(ground);
+        this.x=x;
+        this.y=y;
+        this.setupWorld();
 
         this.forest = new Forest();
 
-        for(int i = 0; i < 2000; i++)
+        for(Tree t: this.forest.getTrees())
         {
-            Tree t = this.forest.getTrees().get(i);
-            Tree3d tree3D = tree3dRender(forest.getRenderMapping().get(t.getFamily()), t.getX(), t.getY(), y, t.getHeight());
+            Tree3d tree3D = tree3dRender(t);
             this.getChildren().addAll(tree3D.getComponents());
         }
-
-        // Setup Lights
-        this.getChildren().addAll(lights());
 
         // Creating a text representation of the forest for accessibility
         String forestDescription = "Forest Description:";
@@ -57,52 +50,55 @@ public class World3d extends Group {
      */
     public void sampleRender()
     {
-        this.getChildren().remove(0, this.getChildren().size());
-        Tree3d maple = tree3dRender("Maple", 0.5, 43.4396719038, 400, 15);
+        this.getChildren().removeAll(this.getChildren());
+        this.setupWorld();
+        Tree t = new Tree(40000,0.5, 43.4396719038, 15, "", "Maple");
+        Tree3d maple = tree3dRender(t);
         this.getChildren().addAll(maple.getComponents());
 
-        Tree3d common = tree3dRender("Common", 0.5005, 43.4396719038, 400, 10);
+        t = new Tree(40001,0.5005, 43.4396719038, 10, "", "MediumTree");
+        Tree3d common = tree3dRender(t);
         this.getChildren().addAll(common.getComponents());
 
-        Tree3d fruit = tree3dRender("Fruit", 0.501, 43.4396719038, 400, 10);
+        t = new Tree(40002,0.501, 43.4396719038, 10, "", "Pear");
+        Tree3d fruit = tree3dRender(t);
         this.getChildren().addAll(fruit.getComponents());
 
-        Tree3d north = tree3dRender("NorthAmerican", 0.5015, 43.4396719038, 400, 12);
+        t = new Tree(40003,0.5015, 43.4396719038, 10, "", "Birch");
+        Tree3d north = tree3dRender(t);
         this.getChildren().addAll(north.getComponents());
 
-        Tree3d evergreen = tree3dRender("Evergreen", 0.502, 43.4396719038, 400, 12);
+        t = new Tree(40004,0.502, 43.4396719038, 12, "", "Pine");
+        Tree3d evergreen = tree3dRender(t);
         this.getChildren().addAll(evergreen.getComponents());
     }
 
     /**
      * Render a tree 3d model given details of a tree
-     * @param render the type of 3d tree
-     * @param x real world longitude
-     * @param z real world latitude
-     * @param y scene height
-     * @param height The height of the tree
+     * @param t a Tree
      * @return a tree 3d model
      */
-    public Tree3d tree3dRender(String render, double x,double z, int y,  int height)
+    public Tree3d tree3dRender(Tree t)
     {
-        int worldX = (int) Math.ceil((x-0.5)*600000);
-        int worldZ = (int) Math.ceil((z - 43.4388419037988)*600000);
 
-        switch (render) {
+        int worldX = (int) Math.ceil((t.getX()-0.5)*600000);
+        int worldZ = (int) Math.ceil((t.getY() - 43.4388419037988)*600000);
+
+        switch (getForest().getRenderMapping().get(t.getFamily())) {
             case "Maple" -> {
-                return new MapleTree3d(worldX,y,worldZ, height*50);
+                return new MapleTree3d(worldX,this.y,worldZ, t.getHeight()*50);
             }
             case "Evergreen" -> {
-                return new EvergreenTree3d(worldX,y,worldZ, height*50);
+                return new EvergreenTree3d(worldX,this.y,worldZ, t.getHeight()*50);
             }
             case "Fruit" -> {
-                return new FruitTree3d(worldX,y,worldZ, height*50);
+                return new FruitTree3d(worldX,this.y,worldZ, t.getHeight()*50);
             }
             case "NorthAmerican" -> {
-                return new NorthAmericanTree3d(worldX,y,worldZ, height*50);
+                return new NorthAmericanTree3d(worldX,this.y,worldZ, t.getHeight()*50);
             }
             default -> {
-                return new CommonTree3d(worldX,y,worldZ, height*50);
+                return new CommonTree3d(worldX,this.y,worldZ, t.getHeight()*50);
             }
         }
     }
@@ -115,16 +111,25 @@ public class World3d extends Group {
     }
 
     /**
-     * @return an Array of lights for rendering this world
+     * Setup this world with ground and directional lights
      */
-    private Node[] lights()
+    public void setupWorld()
     {
+        //Setup Ground
+        Box ground = new Box(150000, 1000, 150000);
+        ground.translateXProperty().set(this.x);
+        ground.translateYProperty().set(this.y+800);
+        ground.setMaterial(grassMaterial);
+        this.getChildren().add(ground);
+
+        // Setup lights
         DirectionalLight right = new DirectionalLight();
         right.setDirection(new Point3D(-1, 2, -2));
-
+        this.getChildren().add(right);
         DirectionalLight left = new DirectionalLight();
         right.setDirection(new Point3D(1, 2, -1));
-
-        return new Node[]{right, left};
+        this.getChildren().add(left);
     }
+
+
 }

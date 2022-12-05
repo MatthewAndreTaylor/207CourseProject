@@ -18,6 +18,7 @@ public class ModalComponent extends Stage{
         Scene scene = new Scene(modalLoader.load(), this.getWidth(), this.getHeight());
         this.getIcons().add(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("icon.png"))));
         this.setScene(scene);
+        this.setResizable(false);
         this.show();
     }
 }
