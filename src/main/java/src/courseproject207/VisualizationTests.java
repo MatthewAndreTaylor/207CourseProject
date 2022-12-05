@@ -6,20 +6,20 @@ import src.courseproject207.tree.Tree;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 
 public class VisualizationTests {
     @Test
     public void testForestSize() {
         Forest forest = new Forest();
-        assertEquals(forest.getTrees().size(), 4387, "Error when testing Forest");
-        forest.addTree(new Tree(0,0,0,1,"Christmas", "EverGreen"));
-        assertEquals(forest.getTrees().size(), 4388, "Error when testing adding a single Tree");
+        assertEquals(forest.getTrees().size(), 4387);
+        forest.addTree(new Tree(0,0,0,1,"Christmas", "Evergreen"));
+        assertEquals(forest.getTrees().size(), 4388);
         for (int i = 0; i < 10; i++) {
-            forest.addTree(new Tree(0,0,0,1,"Christmas", "EverGreen"));
+            forest.addTree(new Tree(0,0,0,1,"Christmas", "Evergreen"));
         }
-        assertEquals(forest.getTrees().size(), 4398, "Error when testing single Tree");
+        assertEquals(forest.getTrees().size(), 4398);
 
         int speciesCount = 0;
         for(String species: forest.getTreeSpecies().keySet())
@@ -59,5 +59,8 @@ public class VisualizationTests {
             forest.removeTree(t);
         }
         assertEquals(forest.getTreeSpecies().get("Maple").size(), 0);
+
+        World3d world3d = new World3d(0,0);
+        assertEquals(world3d.getForest().getTreeSpecies().get("SweetCherry").size(), 1);
     }
 }
