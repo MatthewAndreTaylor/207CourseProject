@@ -10,26 +10,31 @@ import javafx.scene.shape.Box;
 import java.util.Objects;
 
 public class NorthAmericanTree3d extends Tree3d{
+    private static final PhongMaterial northLeafMaterial = new PhongMaterial(Color.valueOf("#235416")
+            , new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))),null,null,null);
     private Box[] components;
     public NorthAmericanTree3d(){}
-    public NorthAmericanTree3d(int x,int y, int z, int width,int height, int length) {
-        this.components = new Box[2];
+    public NorthAmericanTree3d(int x,int y, int z, int height) {
+        this.components = new Box[3];
         // Create trunk
-        this.components[0] = new Box(width, height, length);
-        PhongMaterial trunkMaterial = new PhongMaterial();
-        trunkMaterial.setDiffuseColor(Color.valueOf("#725C42"));
+        this.components[0] = new Box(30, height, 30);
 
         this.components[0].setMaterial(trunkMaterial);
         this.components[0].translateXProperty().set(x);
         this.components[0].translateYProperty().set(y);
         this.components[0].translateZProperty().set(z);
 
-        // Leaf material
-        PhongMaterial leafMaterial = new PhongMaterial();
-        leafMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))));
-        leafMaterial.setDiffuseColor(Color.valueOf("#1d590e"));
-        this.components[1]= this.makeBox(x,y-height/4,z,height/2,height,height/2,leafMaterial);
-
+        // Leaves
+        this.components[1] = new Box(120, 120, 120);
+        this.components[1].setMaterial(northLeafMaterial);
+        this.components[1].translateXProperty().set(x);
+        this.components[1].translateZProperty().set(z);
+        this.components[1].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
+        this.components[2] = new Box(120, 120, 120);
+        this.components[2].setMaterial(northLeafMaterial);
+        this.components[2].translateXProperty().set(x);
+        this.components[2].translateZProperty().set(z);
+        this.components[2].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2-100);
     }
     @Override
     public Node[] getComponents() {

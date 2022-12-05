@@ -11,44 +11,35 @@ import java.util.Objects;
 
 public class EvergreenTree3d extends Tree3d{
 
+    private static final PhongMaterial evergreenLeafMaterial = new PhongMaterial(Color.valueOf("#0f2e07")
+            , new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))),null,null,null);
     private Box[] components;
     public EvergreenTree3d(){}
 
-    public EvergreenTree3d(int x,int y, int z, int width,int height, int length) {
-        this.components = new Box[7];
+    public EvergreenTree3d(int x,int y, int z, int height) {
+        this.components = new Box[4];
         // Create trunk
-        this.components[0] = new Box(width/2, height, length/2);
-        PhongMaterial trunkMaterial = new PhongMaterial();
-        trunkMaterial.setDiffuseColor(Color.valueOf("#725C42"));
-
+        this.components[0] = new Box(30, height, 30);
         this.components[0].setMaterial(trunkMaterial);
         this.components[0].translateXProperty().set(x);
         this.components[0].translateYProperty().set(y);
         this.components[0].translateZProperty().set(z);
 
-        // Leaf Material
-        PhongMaterial leafMaterial = new PhongMaterial();
-        leafMaterial.setDiffuseMap(new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))));
-        leafMaterial.setDiffuseColor(Color.valueOf("#145c14"));
-
-        double leafWidth = height/6;
-        double bottomTree = y+height/2-height/6;
-        double leafHeight = this.components[0].getHeight()/3;
-        double leafDepth = height/2;
-        //need ratio to determine if leaf clips into trunk
-        double ratio = java.lang.Math.max(width,length);
-        if (height/ratio>0.1) {
-            leafWidth = height/3;
-            leafDepth = height;
-        }
-        // Create leaves
-
-        this.components[1]=this.makeBox(x,bottomTree-leafWidth ,z,leafWidth,leafHeight,leafDepth, leafMaterial);
-        this.components[2]=this.makeBox(x+leafWidth, bottomTree-leafWidth,z,leafWidth,leafHeight,leafDepth, leafMaterial);
-        this.components[3]=this.makeBox(x-leafWidth, bottomTree-leafWidth,z,leafWidth,leafHeight,leafDepth, leafMaterial);
-        this.components[4]=this.makeBox(x+(leafWidth/2), (bottomTree-leafWidth)-leafHeight,z,leafWidth,leafHeight,leafDepth*3/4, leafMaterial);
-        this.components[5]=this.makeBox(x-(leafWidth/2), (bottomTree-leafWidth)-leafHeight,z,leafWidth,leafHeight,leafDepth*3/4, leafMaterial);
-        this.components[6]=this.makeBox(x, (bottomTree-(leafWidth))-2*leafHeight,z,leafWidth,leafHeight,leafDepth/3, leafMaterial);
+        this.components[1] = new Box(150, 150, 150);
+        this.components[1].setMaterial(evergreenLeafMaterial);
+        this.components[1].translateXProperty().set(x);
+        this.components[1].translateZProperty().set(z);
+        this.components[1].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
+        this.components[2] = new Box(100, 100, 100);
+        this.components[2].setMaterial(evergreenLeafMaterial);
+        this.components[2].translateXProperty().set(x);
+        this.components[2].translateZProperty().set(z);
+        this.components[2].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2-50);
+        this.components[3] = new Box(50, 50, 50);
+        this.components[3].setMaterial(evergreenLeafMaterial);
+        this.components[3].translateXProperty().set(x);
+        this.components[3].translateZProperty().set(z);
+        this.components[3].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2-120);
     }
     @Override
     public Node[] getComponents() {
