@@ -1,7 +1,6 @@
 package src.courseproject207.tree3d;
 
 import src.courseproject207.VisualizationApplication;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -10,12 +9,9 @@ import javafx.scene.shape.Box;
 import java.util.Objects;
 
 public class EvergreenTree3d extends Tree3d{
-
     private static final PhongMaterial evergreenLeafMaterial = new PhongMaterial(Color.valueOf("#0f2e07")
             , new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))),null,null,null);
-    private Box[] components;
     public EvergreenTree3d(){}
-
     public EvergreenTree3d(int x,int y, int z, int height) {
         this.components = new Box[4];
         // Create trunk
@@ -40,10 +36,6 @@ public class EvergreenTree3d extends Tree3d{
         this.components[3].translateXProperty().set(x);
         this.components[3].translateZProperty().set(z);
         this.components[3].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2-120);
-    }
-    @Override
-    public Node[] getComponents() {
-        return this.components;
     }
 
     @Override

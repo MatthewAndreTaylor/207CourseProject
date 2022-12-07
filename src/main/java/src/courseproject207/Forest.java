@@ -11,7 +11,6 @@ public class Forest {
     private ArrayList<Tree> trees;
     private HashMap<String, ArrayList<Tree>> treeSpecies;
     private HashMap<String, HashSet<String>> treeFamilies;
-
     private HashMap<String, String> renderMapping;
     private TreeFactory treeFactory;
 
@@ -47,7 +46,7 @@ public class Forest {
         this.renderMapping = new HashMap<>();
         try
         {
-            File familyRenderMap = new File(VisualizationApplication.class.getResource("FamilyRenders.txt").getFile());
+            File familyRenderMap = new File(Objects.requireNonNull(VisualizationApplication.class.getResource("FamilyRenders.txt")).getFile());
             Scanner scanner = new Scanner(familyRenderMap);
             while(scanner.hasNextLine())
             {
@@ -95,9 +94,9 @@ public class Forest {
      */
     public void removeTree(Tree t)
     {
-        this.treeSpecies.get(t.getSpeciesName()).remove(t);
-
         this.trees.remove(t);
+        if( this.treeSpecies.get(t.getSpeciesName()).size() == 0) return;
+        this.treeSpecies.get(t.getSpeciesName()).remove(t);
     }
 
     /**

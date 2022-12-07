@@ -6,21 +6,21 @@ import src.courseproject207.VisualizationApplication;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class TreeFactory {
-    Scanner reader;
 
     /**
      * Populate a forest with a reference to tree data
-     * @param forest
-     * @throws IOException
+     * @param forest The forest to populate
+     * @throws IOException resource not found
      */
     public void readFiles(Forest forest) throws IOException
     {
-        File f = new File(VisualizationApplication.class.getResource("Tree_Inventory.csv").getFile());
-        this.reader = new Scanner(f);
-        String[] categoryNames = this.reader.nextLine().split(",");
+        File f = new File(Objects.requireNonNull(VisualizationApplication.class.getResource("Tree_Inventory.csv")).getFile());
+        Scanner reader = new Scanner(f);
+        String[] categoryNames = reader.nextLine().split(",");
 
         // Obtain all category names.
         while(reader.hasNext()) {
@@ -61,12 +61,12 @@ public class TreeFactory {
 
     /**
      * Generate a given tree
-     * @param id
-     * @param x
-     * @param y
-     * @param height
-     * @param speciesName
-     * @param category
+     * @param id Tree id
+     * @param x Tree x
+     * @param y Tree y
+     * @param height Tree height
+     * @param speciesName Tree species name
+     * @param category Tree family
      * @return a Concrete tree from the params
      */
     private Tree createTree(int id, double x, double y, int height, String speciesName,String category) {

@@ -61,13 +61,15 @@ public class VisualizationApplication extends Application {
             }
         });
 
-        scene.setOnScroll( scrollEvent -> camera.setTranslateZ(scrollEvent.getDeltaY() + camera.getTranslateZ()));
+        scene.setOnScroll( scrollEvent -> camera.setTranslateZ(scrollEvent.getDeltaY() * 1.5 + camera.getTranslateZ()));
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case ESCAPE -> camera.setOrientation(0,0,0,0,0);
-                case ALT -> System.out.println(camera.printOrientation());
+                case ALT -> {
+                    System.out.println("Your Position 🌎 plane is: ");
+                    System.out.println(camera.printOrientation());
+                }
                 case BACK_SLASH -> camera.setOrientation(10000, 0, -50000, -80 , -100);
-                case INSERT -> world3D.sampleRender();
             }
         });
 
@@ -77,7 +79,7 @@ public class VisualizationApplication extends Application {
     }
 
     class MovableCamera extends PerspectiveCamera {
-        private final Translate plane = new Translate(0, 0, 0);
+        private final Translate plane = new Translate(24595, -100, -8000);
         private final Rotate xRotation = new Rotate(0, Rotate.X_AXIS);
         private final Rotate yRotation = new Rotate(0, Rotate.Y_AXIS);
 
@@ -102,8 +104,8 @@ public class VisualizationApplication extends Application {
          */
         public void planeXY()
         {
-            this.plane.setX(this.plane.getX() - dragAmount.getX() * 10 * dampening);
-            this.plane.setY(this.plane.getY() - dragAmount.getY() * 10 * dampening);
+            this.plane.setX(this.plane.getX() - dragAmount.getX() * 20 * dampening);
+            this.plane.setY(this.plane.getY() - dragAmount.getY() * 20 * dampening);
         }
 
         /**

@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Objects;
 
 public class ModalComponent extends Stage{
-
     public ModalComponent() throws IOException {
         FXMLLoader modalLoader = new FXMLLoader(VisualizationApplication.class.getResource("modal-component.fxml"));
         // Loads the modal scene from the fxml with accessible text

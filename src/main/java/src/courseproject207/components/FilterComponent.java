@@ -8,14 +8,9 @@ import src.courseproject207.tree3d.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class FilterComponent extends ComboBox{
-
     private World3d world3d;
-
-    private Random random = new Random();
-
     private List<List<String>> filters = new ArrayList<>();
 
     public FilterComponent(World3d world3d){
@@ -27,7 +22,6 @@ public class FilterComponent extends ComboBox{
         this.setOnAction(event -> choice());
         this.setItems(FXCollections.observableArrayList(
                 "All Trees",
-                "Random trees",
                 "Fruit Tree Renders 🍎",
                 "Maple Tree Renders 🍁",
                 "North American Tree Renders 🌳",
@@ -41,6 +35,8 @@ public class FilterComponent extends ComboBox{
                 this.getItems().add(s);
             }
         }
+        this.getItems().add("Sample Render");
+        this.getItems().add("");
         this.setAccessibleHelp("Options for filtering trees in the forest");
     }
 
@@ -48,64 +44,44 @@ public class FilterComponent extends ComboBox{
      * Filters the trees based on the user choice box input
      */
     public void choice(){
-        System.out.println(this.getValue());
+        String selection = String.valueOf(this.getValue());
+        System.out.println("Filter: " + selection);
         this.world3d.getChildren().removeAll(this.world3d.getChildren());
         this.world3d.setupWorld(this.world3d.grassMaterial);
-        switch(String.valueOf(this.getValue()))
-        {
-            case "All Trees" -> {
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    this.world3d.getChildren().addAll(tree3D.getComponents());
-                }
-            }
-            case "Random trees" -> {
-                int start = random.nextInt(this.world3d.getForest().getTrees().size());
-                int end = random.nextInt(this.world3d.getForest().getTrees().size());
-                for(Tree t: this.world3d.getForest().getTrees().subList(Math.min(start,end), Math.max(start,end))) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    this.world3d.getChildren().addAll(tree3D.getComponents());
-                }
-            }
-            case "Fruit Tree Renders 🍎"->{
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
+
+        int partition = 0;
+        if(this.filters.get(1).contains(this.getValue())) partition= 2;
+        if(this.filters.get(0).contains(this.getValue())) partition= 1;
+
+        for(Tree t: this.world3d.getForest().getTrees()) {
+            Tree3d tree3D = this.world3d.tree3dRender(t);
+            switch(selection)
+            {
+                case "All Trees" -> this.world3d.getChildren().addAll(tree3D.getComponents());
+                case "Sample Render" -> this.world3d.sampleRender();
+                case "Fruit Tree Renders 🍎"->{
                     if(tree3D instanceof FruitTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
-            }}
-            case "North American Tree Renders 🌳"->{
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    if(tree3D instanceof NorthAmericanTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
-            }}
-            case "Maple Tree Renders 🍁"->{
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    if(tree3D instanceof MapleTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
-            }}
-            case "Evergreen Tree Renders 🎄"->{
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    if(tree3D instanceof EvergreenTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
-            }}
-            case "Common Tree Renders 🌲"->{
-                for(Tree t: this.world3d.getForest().getTrees()) {
-                    Tree3d tree3D = this.world3d.tree3dRender(t);
-                    if(tree3D instanceof CommonTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
-            }}
-            default -> {
-                if(this.filters.get(0).contains(this.getValue()))
-                {
-                    for(Tree t: this.world3d.getForest().getTrees()) {
-                        Tree3d tree3D = this.world3d.tree3dRender(t);
-                        if (t.getFamily().equals(this.getValue()))
-                            this.world3d.getChildren().addAll(tree3D.getComponents());
-                    }
                 }
-                if(this.filters.get(1).contains(this.getValue()))
-                {
-                    for(Tree t: this.world3d.getForest().getTrees()) {
-                        Tree3d tree3D = this.world3d.tree3dRender(t);
-                        if(t.getSpeciesName().equals(this.getValue())) this.world3d.getChildren().addAll(tree3D.getComponents());
+                case "North American Tree Renders 🌳"->{
+                    if(tree3D instanceof NorthAmericanTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
+                }
+                case "Maple Tree Renders 🍁"->{
+                    if(tree3D instanceof MapleTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
+                }
+                case "Evergreen Tree Renders 🎄"->{
+                    if(tree3D instanceof EvergreenTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
+                }
+                case "Common Tree Renders 🌲"->{
+                    if(tree3D instanceof CommonTree3d) this.world3d.getChildren().addAll(tree3D.getComponents());
+                }
+                default -> {
+                    if(partition == 1)
+                    {
+                        if (t.getFamily().equals(this.getValue())) this.world3d.getChildren().addAll(tree3D.getComponents());
+                    }
+                    if(partition == 2)
+                    {
+                        if (t.getSpeciesName().equals(this.getValue())) this.world3d.getChildren().addAll(tree3D.getComponents());
                     }
                 }
             }
