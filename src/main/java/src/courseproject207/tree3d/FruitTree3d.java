@@ -1,7 +1,6 @@
 package src.courseproject207.tree3d;
 
 import src.courseproject207.VisualizationApplication;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -13,7 +12,6 @@ public class FruitTree3d extends Tree3d{
     private static final PhongMaterial fruitLeafMaterial = new PhongMaterial(Color.valueOf("#145c14")
             , new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leavesgrey.png"))),null,null,null);
     private static final PhongMaterial fruitMaterial = new PhongMaterial(Color.valueOf("#ffe135"));
-    private Box[] components;
     public FruitTree3d(){}
     public FruitTree3d(int x,int y, int z,int height) {
         this.components = new Box[4];
@@ -40,10 +38,6 @@ public class FruitTree3d extends Tree3d{
         this.components[3].translateXProperty().set(x+60);
         this.components[3].translateZProperty().set(z+60);
         this.components[3].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
-    }
-    @Override
-    public Node[] getComponents() {
-        return this.components;
     }
 
     @Override

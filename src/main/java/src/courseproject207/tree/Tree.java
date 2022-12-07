@@ -1,7 +1,6 @@
 package src.courseproject207.tree;
 
 public class Tree {
-
     private final double x;
     private final double y;
     private final int id;

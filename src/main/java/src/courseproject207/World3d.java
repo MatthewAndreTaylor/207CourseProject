@@ -23,7 +23,7 @@ public class World3d extends Group {
 
         this.forest = new Forest();
 
-        for(Tree t: this.forest.getTrees().subList(0,1500))
+        for(Tree t: this.forest.getTrees())
         {
             Tree3d tree3D = tree3dRender(t);
             this.getChildren().addAll(tree3D.getComponents());
@@ -80,7 +80,6 @@ public class World3d extends Group {
      */
     public Tree3d tree3dRender(Tree t)
     {
-
         int worldX = (int) Math.ceil((t.getX()-0.5)*600000);
         int worldZ = (int) Math.ceil((t.getY() - 43.4388419037988)*600000);
 

@@ -1,6 +1,5 @@
 package src.courseproject207.tree3d;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -11,10 +10,7 @@ import java.util.Objects;
 public class CommonTree3d extends Tree3d {
     private static final PhongMaterial commonLeafMaterial = new PhongMaterial(Color.valueOf("#228B22")
             , new Image(Objects.requireNonNull(VisualizationApplication.class.getResourceAsStream("leaves.png"))),null,null,null);
-    private Box[] components;
-
     public CommonTree3d(){}
-
     public CommonTree3d(int x,int y, int z, int height){
         this.components = new Box[2];
         // Create trunk
@@ -30,11 +26,6 @@ public class CommonTree3d extends Tree3d {
         this.components[1].translateXProperty().set(x);
         this.components[1].translateZProperty().set(z);
         this.components[1].translateYProperty().set(this.components[0].getTranslateY()-this.components[0].getHeight()/2);
-    }
-
-    @Override
-    public Node[] getComponents() {
-        return this.components;
     }
 
     @Override
