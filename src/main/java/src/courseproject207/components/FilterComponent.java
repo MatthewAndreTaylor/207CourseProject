@@ -50,7 +50,7 @@ public class FilterComponent extends ComboBox{
     public void choice(){
         System.out.println(this.getValue());
         this.world3d.getChildren().removeAll(this.world3d.getChildren());
-        this.world3d.setupWorld();
+        this.world3d.setupWorld(this.world3d.grassMaterial);
         switch(String.valueOf(this.getValue()))
         {
             case "All Trees" -> {

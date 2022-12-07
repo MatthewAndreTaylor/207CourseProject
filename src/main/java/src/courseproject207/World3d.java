@@ -10,7 +10,7 @@ import src.courseproject207.tree.Tree;
 import src.courseproject207.tree3d.*;
 
 public class World3d extends Group {
-    private static final PhongMaterial grassMaterial = new PhongMaterial(Color.valueOf("#9adf8f"));
+    public static final PhongMaterial grassMaterial = new PhongMaterial(Color.valueOf("#9adf8f"));
     private Forest forest;
     private int x;
     private int y;
@@ -19,11 +19,11 @@ public class World3d extends Group {
     public World3d(int x, int y) {
         this.x=x;
         this.y=y;
-        this.setupWorld();
+        this.setupWorld(grassMaterial);
 
         this.forest = new Forest();
 
-        for(Tree t: this.forest.getTrees())
+        for(Tree t: this.forest.getTrees().subList(0,1500))
         {
             Tree3d tree3D = tree3dRender(t);
             this.getChildren().addAll(tree3D.getComponents());
@@ -51,7 +51,7 @@ public class World3d extends Group {
     public void sampleRender()
     {
         this.getChildren().removeAll(this.getChildren());
-        this.setupWorld();
+        this.setupWorld(grassMaterial);
         Tree t = new Tree(40000,0.5, 43.4396719038, 15, "", "Maple");
         Tree3d maple = tree3dRender(t);
         this.getChildren().addAll(maple.getComponents());
@@ -113,13 +113,13 @@ public class World3d extends Group {
     /**
      * Setup this world with ground and directional lights
      */
-    public void setupWorld()
+    public void setupWorld(PhongMaterial groundMaterial)
     {
         //Setup Ground
         Box ground = new Box(150000, 1000, 150000);
         ground.translateXProperty().set(this.x);
         ground.translateYProperty().set(this.y+800);
-        ground.setMaterial(grassMaterial);
+        ground.setMaterial(groundMaterial);
         this.getChildren().add(ground);
 
         // Setup lights
